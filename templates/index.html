@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Agent</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        // 提交表单时禁用按钮并显示加载动画
+        function handleFormSubmit() {
+            const executeButton = document.getElementById("execute-button");
+            const loadingIndicator = document.getElementById("loading-indicator");
+
+            // 禁用按钮并显示加载图像
+            executeButton.disabled = true;
+            loadingIndicator.style.display = "inline-block";
+
+            return true; // 允许表单提交
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Database Agent</h1>
+        <div class="chat-box">
+            <!-- 展示聊天记录 -->
+            {% for chat in chat_history %}
+                <div class="chat-entry">
+                    <p><strong>Input:</strong> {{ chat.input }}</p>
+                    <p><strong>Output:</strong> {{ chat.output }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <form method="POST" action="/" onsubmit="return handleFormSubmit();">
+            <textarea name="user_input" placeholder="Please enter your request..." required></textarea>
+            <button type="submit" id="execute-button">Execute</button>
+            <!-- 加载图像 -->
+            <span id="loading-indicator" style="display: none;">🔄</span>
+        </form>
+    </div>
+</body>
+</html>
